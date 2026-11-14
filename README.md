@@ -1,6 +1,6 @@
 <h2 align="center">Hi There 👋</h2>
 
-大二学生，喜欢写点能自己天天用的小工具。最近在做 [混云 Mixyun](https://github.com/Shizuku11451/mixyun)，把网易云音乐和 Spotify 放进同一个桌面播放器；也在折腾 [kazusa](https://github.com/Shizuku11451/kazusa)，让 Mac 也能玩 Windows galgame。欢迎来交流～
+大二在读学生，没事喜欢倒腾一些工具之类的。最近在做 [混云 Mixyun](https://github.com/Shizuku11451/mixyun)，把网易云音乐和 Spotify 接入同一个播放器中；喜欢玩 galgame（ 所以做了个 [kazusa](https://github.com/Shizuku11451/kazusa)，让 Mac 也能玩一键玩 galgame。初学者，如果有什么不对的欢迎指正，欢迎来跟我交流～
 
 <p align="center">
 	<a href="mailto:shizuku11451@gmail.com"><img alt="Gmail" src="https://img.shields.io/badge/Gmail-EA4335?logo=gmail&logoColor=fff&style=flat-square" /></a>
