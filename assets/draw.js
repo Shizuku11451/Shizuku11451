@@ -1,101 +1,90 @@
-// Generates assets/shizuku.svg — run: node assets/draw.js
+// Generates assets/shizuku.svg (永雏塔菲 eating mandarins) — run: node assets/draw.js
+// Coordinates are traced from the 640x640 original.
 const fs = require('fs');
 const path = require('path');
 
 const C = {
-  line: '#2b2024',
-  skin: '#fff6f7',
-  hair: '#f6b3c3',
-  hairDark: '#e98fa6',
-  glass: '#caa066',
-  heart: '#7fdde6',
-  blush: '#f79ab0',
-  mouth: '#e5627b',
-  tongue: '#f8a5b4',
-  orange: '#f6994f',
-  orangeLight: '#ffc58f',
-  cream: '#fde7a6',
+  line: '#1a1416',
+  face: '#fdeff0',
+  hair: '#f5bac4',
+  glass: '#c0935a',
+  heart: '#9be4ea',
+  blush: '#f7a9b8',
+  mouth: '#f08099',
+  orange: '#f8a466',
+  cream: '#fbe4a8',
 };
 
 const heart = (x, y, s) =>
-  `<path class="heart" d="M${x} ${y + 6 * s} C${x - 9 * s} ${y - 1 * s}, ${x - 6 * s} ${y - 9 * s}, ${x} ${y - 4 * s} C${x + 6 * s} ${y - 9 * s}, ${x + 9 * s} ${y - 1 * s}, ${x} ${y + 6 * s} Z" fill="${C.heart}" stroke="${C.line}" stroke-width="2"/>`;
-
-const orange = (cx, cy, r, i) => `
-  <g class="orange" style="animation-delay:${i * 0.25}s">
-    <path d="M${cx - r} ${cy} C${cx - r} ${cy - r * 1.05}, ${cx + r} ${cy - r * 1.05}, ${cx + r} ${cy} C${cx + r} ${cy + r * 0.95}, ${cx - r} ${cy + r * 0.95}, ${cx - r} ${cy} Z" fill="${C.orange}"/>
-    <ellipse cx="${cx - r * 0.35}" cy="${cy - r * 0.35}" rx="${r * 0.28}" ry="${r * 0.16}" fill="${C.orangeLight}" transform="rotate(-25 ${cx - r * 0.35} ${cy - r * 0.35})"/>
-    <path d="M${cx - 6} ${cy - r * 0.62} L${cx + 8} ${cy - r * 0.7}" stroke-width="3"/>
-  </g>`;
+  `<path class="heart" d="M${x} ${y + 8 * s} C${x - 12 * s} ${y}, ${x - 9 * s} ${y - 12 * s}, ${x} ${y - 5 * s} C${x + 9 * s} ${y - 12 * s}, ${x + 12 * s} ${y}, ${x} ${y + 8 * s} Z" fill="${C.heart}" stroke="none"/>`;
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640">
 <style>
   .char { animation: bob 2.4s ease-in-out infinite; }
   .heart { transform-box: fill-box; transform-origin: center; animation: pulse 1.2s ease-in-out infinite; }
-  .orange { animation: hop 1.6s ease-in-out infinite; }
-  .snack { transform-box: fill-box; transform-origin: 20% 20%; animation: nom 0.8s ease-in-out infinite; }
-  @keyframes bob { 50% { transform: translateY(-6px); } }
-  @keyframes pulse { 50% { transform: scale(1.25); } }
-  @keyframes hop { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
-  @keyframes nom { 50% { transform: rotate(-6deg); } }
+  @keyframes bob { 50% { transform: translateY(-5px); } }
+  @keyframes pulse { 50% { transform: scale(1.2); } }
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
 </style>
-<defs>
-  <filter id="sketch" x="-5%" y="-5%" width="110%" height="110%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="7"/>
-    <feDisplacementMap in="SourceGraphic" scale="3"/>
-  </filter>
-  <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
-  <clipPath id="mouthClip"><path d="M288 302 Q330 314 378 298 Q374 362 332 368 Q290 364 288 302 Z"/></clipPath>
-</defs>
-<g filter="url(#sketch)" stroke="${C.line}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
- <g class="char">
-  <!-- twin tails (behind body) -->
-  <path d="M206 150 C120 170 88 240 92 300 C94 332 62 344 52 374 C42 404 64 424 50 450 C40 472 58 492 86 482 C104 474 98 452 106 432 C118 406 102 386 118 360 C132 338 144 318 176 300 Z" fill="${C.hair}"/>
-  <path d="M120 300 C110 330 90 345 82 372 M80 410 C88 430 80 450 76 470" stroke="${C.hairDark}" stroke-width="3"/>
-  <path d="M458 150 C544 170 576 240 572 300 C570 332 602 344 612 374 C622 404 600 424 614 450 C624 472 606 492 578 482 C560 474 566 452 558 432 C546 406 562 386 546 360 C532 338 520 318 488 300 Z" fill="${C.hair}"/>
-  <path d="M544 300 C554 330 574 345 582 372 M584 410 C576 430 584 450 588 470" stroke="${C.hairDark}" stroke-width="3"/>
+<defs><filter id="soft" x="-1" y="-1" width="3" height="3"><feGaussianBlur stdDeviation="7"/></filter></defs>
+<g class="char" stroke="${C.line}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
 
-  <!-- head + body -->
-  <path d="M332 76 C440 74 520 150 516 270 C514 342 486 382 486 444 C486 522 474 582 400 602 L252 602 C196 590 182 530 184 452 C184 392 148 342 148 270 C148 150 228 78 332 76 Z" fill="${C.skin}"/>
+  <!-- twin tails -->
+  <path d="M66 288 C72 310 80 338 72 348 C55 356 30 366 27 385 C26 398 46 400 44 410 C38 420 10 422 4 438 C0 452 8 466 22 467 L48 467 C40 450 46 440 62 436 C86 432 104 424 112 404 C118 388 116 370 112 352 C110 338 112 330 120 322 Z" fill="${C.hair}"/>
+  <path d="M520 214 C540 204 566 210 578 236 C584 252 582 270 592 282 C604 292 614 302 612 320 C610 334 600 340 604 352 C610 364 624 374 618 390 C614 398 608 402 604 404 C600 392 594 380 586 374 C574 364 586 352 578 344 C565 336 545 338 526 338 Z" fill="${C.hair}"/>
+  <path d="M556 248 C566 272 572 296 590 308 M586 330 C578 340 572 350 566 352" stroke-width="4"/>
 
-  <!-- face -->
-  <path d="M214 284 Q240 252 266 284 M394 284 Q420 252 446 284" stroke-width="5"/>
-  <ellipse cx="216" cy="318" rx="26" ry="13" fill="${C.blush}" stroke="none" opacity="0.75" filter="url(#soft)"/>
-  <ellipse cx="446" cy="318" rx="26" ry="13" fill="${C.blush}" stroke="none" opacity="0.75" filter="url(#soft)"/>
-  <path d="M288 302 Q330 314 378 298 Q374 362 332 368 Q290 364 288 302 Z" fill="${C.mouth}"/>
-  <ellipse cx="334" cy="372" rx="38" ry="26" fill="${C.tongue}" stroke="none" clip-path="url(#mouthClip)"/>
-  <path d="M288 302 Q330 314 378 298 Q374 362 332 368 Q290 364 288 302 Z"/>
+  <!-- head + body silhouette -->
+  <path d="M78 200 C92 180 120 130 165 93 C200 72 270 52 335 47 C400 44 450 58 480 82 L500 110 C512 118 522 122 530 134 L562 162 L526 177 C520 210 518 260 520 300 C524 340 534 380 537 450 L470 552 L240 552 C205 540 172 520 172 490 C172 460 190 430 212 410 C226 396 232 370 230 346 C200 340 175 330 160 322 C150 312 130 300 120 322 L66 288 C80 270 96 250 100 205 Z" fill="${C.face}" stroke="none"/>
 
-  <!-- hair cap with zigzag bangs -->
-  <path d="M150 278 C148 152 230 80 332 78 C440 76 518 152 514 270 L482 196 L462 238 L432 168 L406 228 L376 160 L348 222 L322 158 L292 226 L266 166 L242 234 L216 172 L192 254 Z" fill="${C.hair}"/>
-  <path d="M152 240 C166 280 170 320 180 356 C190 318 194 284 194 250 Z M512 240 C498 280 494 320 484 356 C474 318 470 284 470 250 Z" fill="${C.hair}"/>
-  <path d="M220 120 C240 140 250 160 256 175 M440 120 C425 140 418 155 414 170" stroke="${C.hairDark}" stroke-width="3"/>
+  <!-- hair cap (face shows through the bangs) -->
+  <path d="M78 200 C92 180 120 130 165 93 C200 72 270 52 335 47 C400 44 450 58 480 82 L500 110 C512 118 522 122 530 134 L562 162 L526 177 C520 210 517 250 518 290 L522 338 L484 342 L478 270 L454 141 L427 184 L402 150 L380 132 L352 150 L315 208 L297 190 L228 188 L192 225 L170 160 L163 250 L160 322 L135 250 L122 194 Z" fill="${C.hair}" stroke="none"/>
+  <path d="M100 205 C98 230 96 250 72 278 L66 300 L120 322 L160 322 L135 250 L122 194 Z" fill="${C.hair}" stroke="none"/>
+
+  <!-- blush -->
+  <ellipse cx="215" cy="290" rx="30" ry="20" fill="${C.blush}" stroke="none" filter="url(#soft)"/>
+  <ellipse cx="452" cy="228" rx="28" ry="20" fill="${C.blush}" stroke="none" filter="url(#soft)"/>
+
+  <!-- mouth -->
+  <path d="M266 292 C300 290 345 280 372 262 C384 254 392 248 398 244 L402 284 C390 290 375 298 360 303 L300 322 C290 326 280 330 271 331 Z" fill="${C.mouth}" stroke="none"/>
+  <path d="M262 294 C300 290 345 280 398 243 M264 280 L271 332 M240 342 C255 337 280 330 300 322 M358 302 C375 296 390 288 402 283 L462 219"/>
+
+  <!-- outlines: head, hair, body -->
+  <path d="M122 192 L78 200 C92 180 120 130 165 93 C200 72 270 52 335 47 C400 44 450 58 480 82 L500 110 C512 118 522 122 530 134 L562 162 L500 180"/>
+  <path d="M100 205 C98 230 96 250 72 278 L66 300 M122 194 L135 250 L160 322 M170 160 L163 250 L161 320 M170 160 L192 225 L282 147"/>
+  <path d="M526 177 C520 210 517 250 518 290 M505 160 C498 200 490 230 480 236 C460 248 440 260 420 270 M454 141 L476 210 L480 268 L484 342"/>
+  <path d="M165 316 C190 328 215 338 240 342 M238 345 C255 352 280 362 303 372 M258 393 L305 384"/>
+  <path d="M230 348 C232 370 228 390 212 410 C190 430 172 460 172 490 C172 515 200 535 238 548 M522 338 C530 370 536 410 537 450 M480 318 L485 362"/>
+
+  <!-- bangs strands -->
+  <path d="M197 182 C230 178 260 182 292 191 M267 108 L315 208 L372 118 M402 149 L454 141 L478 216 M402 154 L454 141"/>
+
+  <!-- eyes (happy closed) -->
+  <path d="M202 262 C215 238 250 222 289 258 M400 222 L432 182 M406 152 L478 216"/>
 
   <!-- ahoge -->
-  <path d="M318 82 C296 44 306 12 344 20 C324 30 322 56 340 80" fill="${C.hair}"/>
+  <path d="M268 54 C268 30 280 10 298 4 C314 0 326 8 324 22 C322 32 319 40 320 50" fill="${C.hair}"/>
 
-  <!-- sunglasses on head -->
-  <path d="M220 118 L252 112 M414 104 L448 112" stroke-width="3"/>
-  <rect x="250" y="88" width="76" height="46" rx="18" fill="${C.glass}" transform="rotate(-4 288 111)"/>
-  <rect x="340" y="82" width="76" height="46" rx="18" fill="${C.glass}" transform="rotate(-4 378 105)"/>
-  <path d="M326 106 Q333 98 340 104" stroke-width="3"/>
-  ${heart(288, 110, 1.5)}
-  ${heart(378, 104, 1.5)}
+  <!-- sunglasses -->
+  <path d="M180 92 L270 84 C278 90 280 100 274 108 C262 118 236 130 200 140 C188 134 180 118 180 92 Z" fill="${C.glass}"/>
+  <path d="M336 76 L400 66 C420 68 436 76 440 88 C440 98 432 106 418 110 C395 116 368 118 346 120 C338 110 334 92 336 76 Z" fill="${C.glass}"/>
+  ${heart(232, 106, 2.1)}
+  ${heart(378, 92, 2.1)}
+  <path d="M270 86 L336 80 M296 105 L310 103" />
 
   <!-- snack -->
-  <g class="snack">
-    <path d="M298 352 C318 306 434 336 438 428 C410 410 350 398 298 352 Z" fill="${C.orange}"/>
-    <path d="M334 340 C370 336 404 360 418 396" stroke="${C.orangeLight}" stroke-width="5"/>
-    <path d="M360 374 L372 352 M392 394 L404 372" stroke="${C.cream}" stroke-width="3"/>
-  </g>
-  <ellipse cx="304" cy="372" rx="16" ry="13" fill="${C.skin}" stroke-width="3.5"/>
-  <ellipse cx="428" cy="430" rx="16" ry="13" fill="${C.skin}" stroke-width="3.5"/>
+  <path d="M297 340 C300 328 310 318 330 302 C342 300 356 302 372 308 C395 318 420 336 432 360 C445 374 462 384 472 400 C478 414 474 430 462 432 C452 432 446 424 436 418 C428 413 420 410 410 410 C390 414 370 420 345 418 C325 416 308 408 300 396 L307 377 L292 365 Z" fill="${C.orange}"/>
+  <path d="M384 322 C398 320 420 334 432 346 C434 358 430 368 426 372 C410 370 398 368 392 364 C386 352 384 336 384 322 Z" fill="${C.cream}"/>
+  <circle cx="349" cy="331" r="3.5" fill="${C.line}" stroke="none"/>
+  <path d="M452 370 C462 368 474 370 486 382"/>
 
-  <!-- oranges -->
-  ${orange(282, 552, 58, 0)}
-  ${orange(522, 538, 50, 2)}
-  ${orange(412, 562, 58, 1)}
- </g>
+  <!-- mandarins: left, right, then middle in front -->
+  <path d="M235 528 C238 505 260 485 295 472 C320 478 340 488 356 502 C352 530 352 556 352 570 C320 578 280 578 248 568 C238 558 234 545 235 528 Z" fill="${C.orange}"/>
+  <path d="M296 492 L308 495"/>
+  <path d="M466 476 C480 462 510 450 535 450 C555 455 572 475 576 500 C576 520 568 534 545 542 C520 548 490 550 470 550 Z" fill="${C.orange}"/>
+  <path d="M510 481 L524 486"/>
+  <path d="M356 500 C362 482 385 468 410 467 C435 467 455 474 462 486 C474 505 476 535 468 555 C460 575 430 595 400 602 C380 594 362 575 354 550 C350 535 350 515 356 500 Z" fill="${C.orange}"/>
+  <path d="M406 490 L420 495"/>
 </g>
 </svg>
 `;

@@ -1,6 +1,6 @@
 <h2 align="center">Hi There 👋</h2>
 
-<p align="center"><img src="assets/shizuku.svg" width="240" alt="Shizuku eating mandarins" /></p>
+<p align="center"><img src="assets/shizuku.svg" width="240" alt="永雏塔菲吃橘子" /></p>
 
 大二在读学生，没事喜欢倒腾一些工具之类的。最近在做 [混云 Mixyun](https://github.com/Shizuku11451/mixyun)，把网易云音乐和 Spotify 接入同一个播放器中；喜欢玩 galgame（ 所以做了个 [kazusa](https://github.com/Shizuku11451/kazusa)，让 Mac 也能玩一键玩 galgame。初学者，如果有什么不对的欢迎指正，欢迎来跟我交流～
 
